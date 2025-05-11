@@ -29,7 +29,7 @@ const RegistrationPage = () => {
           <img className="mt-[16vh] ml-[-280px] w-23 h-23" src={gesture} />
         </div>
         <div className="flex">
-          <h4 className="mt-[37vh] ml-[-380px] font-mono font-bold">
+          <h4 className="mt-[35vh] ml-[-380px] font-mono font-bold">
             Enter Your Credentials
           </h4>
         </div>
@@ -37,18 +37,18 @@ const RegistrationPage = () => {
           <RegistrationForm />
         </div>
         <div className="flex">
-          <h4 className="mt-[78vh] ml-[-380px] font-mono font-bold">
+          <h4 className="mt-[76vh] ml-[-380px] font-mono font-bold">
             Already have an account?{" "}
-            <Link to="/loginpage" className="text-blue-500 underline hover:text-blue-700">Sign In</Link>
+            <Link to="/" className="text-blue-500 underline hover:text-blue-700">Sign In</Link>
           </h4>
         </div>
-        <div className="ml-[-350px] mt-[84vh]">
+        <div className="ml-[-346px] mt-[82vh]">
           <button
             type="submit"
             className="border-2 border-black py-1 rounded-xl text-black flex items-center justify-center space-x-3 w-54 bg-transparent"
           >
             <GoogleIcon style={{ fontSize: 20 }} />
-            <span>Sign In With Google</span>
+            <span>Sign Up With Google</span>
           </button>
         </div>
       </div>

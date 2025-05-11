@@ -7,11 +7,12 @@ const taskSchema = new mongoose.Schema({
     priority: {type:String, required:true},
     status: {type:String, required:true},
     dueDate: {type:Date},
-    color: {type:String},
+    endDate: {type:Date},
+    color: {type:String, default:""},
     user: {type:mongoose.Schema.Types.ObjectId, ref:'User'}
 })
 
 //define model
-new Task = mongoose.model("Task",taskSchema)
+const Task = mongoose.model("Task",taskSchema)
 
 module.exports = Task;

@@ -1,19 +1,35 @@
 import React, { useState } from "react";
+import { useSelector,useDispatch } from "react-redux";
+import {userLogin} from '../Storage/Auth/AuthAction'
+import { useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
+
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false)
+
+  const {loading,user,error} = useSelector((state)=> state.user);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (email === "" || password === "") {
-      setErrorMessage("Email and Password cannot be empty");
-    } else {
-      setErrorMessage("User successful logged.");
-    }
+    console.log("SD: ",email,password)
+    dispatch(userLogin({email,password},navigate))
 
-    onLogin(email, password);
+    // if (email === "" || password === "") {
+    //   setErrorMessage("Email and Password cannot be empty");
+    // } else {
+    //   setErrorMessage("User successful logged.");
+    // }
+
+    // onLogin(email, password);
+    
   };
 
   return (
@@ -26,17 +42,24 @@ const LoginForm = () => {
               value={email}
               placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
+              required
               className="border-2 bg-transparent w-70 bg-white border-black placeholder-gray-500 px-4 py-2 rounded-lg"
             />
           </div>
           <div className="">
             <input
-              type="text"
+              type={showPassword? 'text':'password'}
               value={password}
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
+              required
               className="border-2 mt-[2vh] w-70 bg-white border-black placeholder-gray-500 px-4 py-2 rounded-lg bg-transparent"
             />
+            <span onClick={() => setShowPassword(!showPassword)} 
+                      className="absolute mt-6 ml-[-30px] cursor-pointer text-gray-600 hover:text-black"
+              >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </span>
           </div>
           <div className=" p-9 flex justify-center">
             <div className="relative">

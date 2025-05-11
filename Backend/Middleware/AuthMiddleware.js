@@ -6,6 +6,7 @@ const User = require('../Model/AuthModel')
 //authentication middleware
 const authMiddleware = async (req,res,next)=>{
     try{
+        console.log("Incoming token:", req.header("Authorization"))
     //get the token from autherization header
     //?. mean it prevents errors if authorization is missing.code won't crash and will return undefined.
     //.split(" ") mean splits the string into an array
@@ -18,18 +19,21 @@ const authMiddleware = async (req,res,next)=>{
         return res.status(401).json({message:"Access denied.No token provided."})
     }
 
-    
+
         //verify the token
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
+       
+
         //fetch user from the database
         const user = await User.findById(decoded.id)
+  
         if(!user){
             return res.status(401).json({ message: "User not found. Please log in again." });
         }
 
         //attach user data to request
-        req.user = decoded;
+        req.user = user;
         next()
     } catch(error){
         res.status(401).json({message:"Invalid or expired token."})

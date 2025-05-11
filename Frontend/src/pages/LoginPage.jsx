@@ -1,14 +1,12 @@
 import React from "react";
 import gesture from "../assets/gesture.png";
 import LoginForm from "../components/loginForm";
-import GoogleIcon from '@mui/icons-material/Google';  // Correct the import
-import logo from "../assets/logo.png"
-import homepageimage from "../assets/homepageimage.png"
+import GoogleIcon from "@mui/icons-material/Google"; // Correct the import
+import logo from "../assets/logo.png";
+import homepageimage from "../assets/homepageimage.png";
 import { Link } from "react-router-dom";
 
-
 const LoginPage = () => {
-
   const handleLogin = (email, password) => {
     console.log("logged");
   };
@@ -17,12 +15,17 @@ const LoginPage = () => {
     <>
       <div className="min-h-screen flex ">
         <div className="Column1 bg-[#0D4715] w-9/13">
-          
           <img className=" w-50 h-50" src={logo} />
 
-          <img className="w-120 h-110 ml-[250px] mt-[-15vh]" src={homepageimage} />
-          <h2 className="text-5xl text-black font-mono font-bold  ml-[180px] mt-[5vh] italic">Get Things Done<br/>One List At A Time.</h2>
-
+          <img
+            className="w-120 h-110 ml-[250px] mt-[-15vh]"
+            src={homepageimage}
+          />
+          <h2 className="text-5xl text-black font-mono font-bold  ml-[180px] mt-[5vh] italic">
+            Get Things Done
+            <br />
+            One List At A Time.
+          </h2>
         </div>
         <div className="Column2 bg-[#F8EFE0] w-4/13 flex ">
           <h1 className="mt-[15vh] ml-[200px] font-mono text-5xl leading-12.5 font-bold">
@@ -40,20 +43,28 @@ const LoginPage = () => {
           <LoginForm onLogin={handleLogin} />
         </div>
         <div className="flex">
-          <h4 className="mt-[73vh] ml-[-380px] font-mono font-bold">
-            Don't have an account? {" "}
-            <Link to="/registrationpage" className="text-blue-500 underline hover:text-blue-700">Sign Up</Link>
+          <h4 className="mt-[73vh] ml-[-370px] font-mono font-bold">
+            Don't have an account?{" "}
+            <Link
+              to="/registrationpage"
+              className="text-blue-500 underline hover:text-blue-700"
+            >
+              Sign Up
+            </Link>
           </h4>
         </div>
-        <div className="ml-[-360px] mt-[80vh]">
+
+        <div className="ml-[-360px] mt-[75vh] flex flex-col items-center space-y-2">   
+          
+
           <Link to="/dashboard">
-          <button
-            type="submit"
-            className="border-2 border-black py-1 rounded-xl text-black flex items-center justify-center space-x-3 w-54 bg-transparent"
-          >
-            <GoogleIcon style={{ fontSize: 20 }}/>
-            <span>Sign Up With Google</span>
-          </button>
+            <button
+              type="submit"
+              className="mt-8 ml-3 border-2 border-black py-1 rounded-xl text-black flex items-center justify-center space-x-3 w-54 bg-transparent"
+            >
+              <GoogleIcon style={{ fontSize: 20 }} />
+              <span>Sign In With Google</span>
+            </button>
           </Link>
         </div>
       </div>

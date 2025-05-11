@@ -7,9 +7,10 @@ const addTask = async (req, res) => {
   try {
     //get user id from authmiddleware[JWT token]
     const userId = req.user.id;
-    const { taskName, taskDescription, priority, status, dueDate, color } = req.body;
+    const { taskName, taskDescription, priority, status, dueDate, endDate, color } = req.body;
 
-    let user = await User.findById({ userId });
+    //findbyid expects only a single ID as an argument. {userid} is like a object so not just string
+    let user = await User.findById( userId );
     if (!user) {
       res.status(404).json({ message: "User not found" });
     }
@@ -20,6 +21,7 @@ const addTask = async (req, res) => {
       priority,
       status,
       dueDate,
+      endDate,
       color,
       user: userId,
     });
@@ -44,7 +46,10 @@ const fetchTasks = async(req,res) =>{
       return res.status(404).json({message:"User not found."})
     }
 
-    res.status(200).json({user:userId})
+    let tasks = await Task.find({user: userId})
+    console.log("TASK: ",tasks)
+
+    res.status(200).json({tasks})
 
   }catch(error){
     res.status(500).json({message:"Server error ",error})
@@ -94,4 +99,58 @@ const deleteTask = async(req,res) =>{
   }
 }
 
-module.exports = { addTask,fetchTasks,updateTasks,deleteTask};
+//search tasks
+const searchTasks = async (req,res) => {
+
+  try{
+
+    //Get the value from the body
+    const searchTerm = req.body.term
+    const userId = req.user.id;
+
+    const user = await User.findById(userId)
+    if(!user){
+      return res.status(401).json({message: "User not found.Please logged in."})
+    }
+
+    //in here $regex search for the text that matches this pattern. it helps you find things even if it is part of the word.
+    //$option is used together with $regex to control how the search behaves. in here 'i' stands for the ignore case.
+    //It tells MongoDB to not care about uppercase or lowercase when matching text.
+    //we can use without regex like this, const results = await Task.find({name: searchTerm})
+    const results = await Task.find({
+      taskName : {$regex: searchTerm, $options : 'i'}
+    })
+
+    res.json(results)
+  } catch(error){
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+//delet tasks
+const deleteTasks = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const taskId = req.params.taskId;
+    console.log("TASKID: ", taskId);
+
+    // Find the user
+    let user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found." }); // Changed to 404
+    }
+
+    // Delete the task associated with the user
+    const deleted = await Task.findOneAndDelete({ _id: taskId, user:userId });
+    if (!deleted) {
+      return res.status(404).json({ message: "Task not found" }); // Changed to 404
+    }
+
+    return res.status(200).json({ message: "Task deleted successfully", taskId: taskId }); // Only return taskId
+  } catch (error) {
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+module.exports = { addTask,fetchTasks,updateTasks,deleteTask,searchTasks,deleteTasks};
