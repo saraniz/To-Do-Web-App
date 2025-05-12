@@ -55,52 +55,53 @@ const SearchBar = () => {
         </form>
 
         {showModal && (
-  <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-    <div className=" bg-white p-8 rounded-2xl w-[90%] max-w-2xl max-h-[80vh] overflow-y-auto shadow-2xl border border-gray-200 dark:border-gray-700 transition-all duration-300">
-      
-      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-black">
-        Search Results
-      </h2>
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+            <div className=" bg-white p-8 rounded-2xl w-[90%] max-w-2xl max-h-[80vh] overflow-y-auto shadow-2xl border border-gray-200 dark:border-gray-700 transition-all duration-300">
+              <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-black">
+                Search Results
+              </h2>
 
-      {loading ? (
-        <p className="text-center text-gray-500">Loading...</p>
-      ) : error ? (
-        <p className="text-red-500 text-center">{error}</p>
-      ) : taskList.length > 0 ? (
-        <ul className="space-y-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100 dark:scrollbar-thumb-gray-700 dark:scrollbar-track-gray-800">
-          {taskList.map((item) => (
-            <li
-              key={item._id}
-              className="rounded-xl border border-gray-300 dark:border-black bg-white dark:bg-green-100 p-5 shadow-md hover:shadow-xl transition-transform duration-200"
-            >
-              <p className="text-sm text-black dark:text-black font-medium font-serif">
-                <strong>Task Name:</strong> {item?.taskName || "N/A"}
-              </p>
-              <p className="text-sm text-black dark:text-black font-medium font-serif mt-1">
-                <strong>Status:</strong> {item?.status || "N/A"}
-              </p>
-              <p className="text-sm text-black dark:text-black font-medium font-serif mt-1">
-                <strong>Priority:</strong> {item?.priority || "N/A"}
-              </p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="text-center text-gray-500">No results found.</p>
-      )}
+              {loading ? (
+                <p className="text-center text-gray-500">Loading...</p>
+              ) : error ? (
+                <p className="text-red-500 text-center">{error}</p>
+              ) : taskList.length > 0 ? (
+                <ul className="space-y-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100 dark:scrollbar-thumb-gray-700 dark:scrollbar-track-gray-800">
+                  {taskList.map((item) => (
+                    <li
+                      key={item._id}
+                      className="rounded-xl border border-gray-300 dark:border-black bg-white dark:bg-green-100 p-5 shadow-md hover:shadow-xl transition-transform duration-200"
+                    >
+                      <p className="text-sm text-black dark:text-black font-medium font-serif">
+                        <strong>Task Name:</strong> {item?.taskName || "N/A"}
+                      </p>
+                      <p className="text-sm text-black dark:text-black font-medium font-serif mt-1">
+                        <strong>Status:</strong> {item?.status || "N/A"}
+                      </p>
+                      <p className="text-sm text-black dark:text-black font-medium font-serif mt-1">
+                        <strong>Priority:</strong> {item?.priority || "N/A"}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-center text-gray-500">No results found.</p>
+              )}
 
-      <div className="mt-8 text-center">
-        <button
-          onClick={() => setShowModal(false)}
-          className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-6 py-2 rounded-full text-sm font-semibold shadow-md hover:shadow-lg transition duration-200"
-        >
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
-)}
-
+              <div className="mt-8 text-center">
+                <button
+                  onClick={() => {
+                    setShowModal(false);
+                    setSearchInput(""); // clear search input
+                  }}
+                  className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-6 py-2 rounded-full text-sm font-semibold shadow-md hover:shadow-lg transition duration-200"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import RegistrationPage from "./pages/ResgistrationPage";
-import Dashboard from "./pages/dashboard";
+import Dashboard from './pages/Dashboard';
 import TasksPage from "./pages/TasksPage";
 import CalendarView from "./pages/Calendar";
 import Setting from "./pages/Settings";

@@ -20,9 +20,7 @@ const Setting = () => {
   const dispatch = useDispatch();
   const { loading, user, error } = useSelector((state) => state.user);
 
-  //only show loading animation when page loading
-  const [pageLoading, setPageLoading] = useState(true); // Local loading state
-
+  const [pageLoading, setPageLoading] = useState(true);
   const [formData, setFormData] = useState({
     fName: "",
     lName: "",
@@ -35,18 +33,14 @@ const Setting = () => {
   const [profileImage, setProfileImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
 
-  // Fetch user details on page load
   useEffect(() => {
-    const timer = setTimeout(async () => {
-      await dispatch(fetchUserDetails());
-      //after fetching details pageloading state become false.then it not display after it updated
+    const timer = setTimeout(() => {
+      dispatch(fetchUserDetails());
       setPageLoading(false);
     }, 800);
-
     return () => clearTimeout(timer);
   }, [dispatch]);
 
-  // Set form data when user is loaded
   useEffect(() => {
     if (user) {
       setFormData({
@@ -95,12 +89,9 @@ const Setting = () => {
     }
 
     dispatch(updateDetails(form));
-
-    // Re-fetch user details to update the form values
-  dispatch(fetchUserDetails());
+    dispatch(fetchUserDetails());
   };
 
-  // Show loader only on page load
   if (pageLoading) {
     return <Loader />;
   }
@@ -115,7 +106,7 @@ const Setting = () => {
 
       <div className="bg-[#F3FCF0] w-820 font-serif">
         <h1 className="mt-[5vh] ml-[60px] text-2xl font-semibold">Settings</h1>
-        <h3 className="mt-[1vh] ml-[60px] ">Make Your Settings</h3>
+        <h3 className="mt-[1vh] ml-[60px]">Make Your Settings</h3>
         <div className="mt-[3vh] border-t border-black my-4 ml-[60px] w-290"></div>
 
         {/* Profile Picture */}
@@ -138,10 +129,11 @@ const Setting = () => {
               style={{ display: "none" }}
             />
 
-            <label htmlFor="profileImageInput">
-              <button className="ml-[800px] mt-18 px-7 py-1 bg-green-400 border-2 rounded-3xl">
-                Upload
-              </button>
+            <label
+              htmlFor="profileImageInput"
+              className="cursor-pointer ml-[800px] mt-18 px-7 py-1 bg-green-400 border-2 rounded-3xl inline-block text-center"
+            >
+              Upload
             </label>
           </div>
 

@@ -81,7 +81,7 @@ export const fetchTasks = () => {
         } catch(error){
 
             Swal.fire({
-                title: "Success",
+                title: "Error",
                 width: 600,
                 padding: "3em",
                 color: "#716add",

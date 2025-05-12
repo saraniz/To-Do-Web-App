@@ -25,7 +25,12 @@ const userRegistration = async (req, res) => {
 
     await user.save();
 
-    res.status(201).json({ message: "User registered successfully" });
+    //generate jwt token for frontend authentication
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    res.status(201).json({ message: "User registered successfully",token,user });
   } catch (error) {
     res.status(500).json({ messsage: "Error.Try again.", error });
   }

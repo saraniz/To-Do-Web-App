@@ -18,10 +18,12 @@ export const registerUser = (registerData,navigate) =>{
             const response = await axios.post(`${API_BASE_URL}/api/user/register`,registerData)
 
             const data = response.data
+            console.log("REGD: ",data)
+        
 
             //if backend send jwt token with response data it should store 
-            if(data.jwt){
-                localStorage.setItem("jwt",data.jwt)
+            if(data.token){
+                localStorage.setItem("jwt",data.token)
             }
 
             Swal.fire({
@@ -32,7 +34,7 @@ export const registerUser = (registerData,navigate) =>{
                 background: "bg-[#F3FCF0]",
                 
               }).then(()=>{
-                navigate("/dashboard")
+                navigate("/settings")
               })
               
 
@@ -42,6 +44,15 @@ export const registerUser = (registerData,navigate) =>{
             })
 
         } catch (error) {
+
+            Swal.fire({
+                title: "Error",
+                width: 600,
+                padding: "3em",
+                color: "#716add",
+                background: "bg-[#F3FCF0]",
+                
+              })
 
             dispatch({
                 type:REGISTER_FAILURE,
@@ -90,6 +101,15 @@ export const userLogin = (loginData,navigate) => {
 
         } catch(error){
 
+            Swal.fire({
+                title: "Error",
+                width: 600,
+                padding: "3em",
+                color: "#716add",
+                background: "bg-[#F3FCF0]",
+                
+              })
+
             dispatch({
                 type: LOGIN_FAILURE,
                 payload: error.response?.data?.message || "Login Failed",
@@ -131,14 +151,7 @@ export const fetchUserDetails = () =>{
 
         } catch(error){
             
-            Swal.fire({
-                title: "error",
-                width: 600,
-                padding: "3em",
-                color: "#716add",
-                background: "bg-[#F3FCF0]",
-                
-              })
+            
             dispatch({
                 type: FETCH_FAILURE,
                 payload: error.response?.data?.message || "Fetch failed"

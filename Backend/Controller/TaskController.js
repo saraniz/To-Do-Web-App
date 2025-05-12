@@ -118,6 +118,7 @@ const searchTasks = async (req,res) => {
     //It tells MongoDB to not care about uppercase or lowercase when matching text.
     //we can use without regex like this, const results = await Task.find({name: searchTerm})
     const results = await Task.find({
+      user: userId,
       taskName : {$regex: searchTerm, $options : 'i'}
     })
 

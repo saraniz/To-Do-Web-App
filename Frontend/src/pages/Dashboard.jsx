@@ -37,7 +37,7 @@ const Dashboard = () => {
     const timer = setTimeout(() => {
       dispatch(fetchUserDetails());
       setPageLoading(false)
-    },800)
+    },1200)
 
     return () => clearTimeout(timer)
   }, [dispatch]);
@@ -57,6 +57,7 @@ const Dashboard = () => {
       setPreviewUrl(imageUrl);
       setUploadImage(file);
       dispatch(uploadCoverImage(file));
+      window.location.reload()
     }
   };
 
