@@ -1,6 +1,4 @@
-Absolutely! Here's your full `README.md` in proper Markdown format that you can directly use in your project:
 
-````markdown
 # To-Do Web Application
 
 ## 🚀 Project Overview
@@ -124,7 +122,7 @@ This project is licensed under the MIT License.
 
 For questions or suggestions, feel free to reach out:
 
-* GitHub: [YourGitHubUsername](https://github.com/saraniz)
+* GitHub: [saraniz](https://github.com/saraniz)
 
 ---
 
